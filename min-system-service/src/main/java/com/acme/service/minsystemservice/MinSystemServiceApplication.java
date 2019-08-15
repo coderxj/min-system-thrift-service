@@ -11,14 +11,20 @@ import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TTransportException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 
 @SpringBootApplication
 public class MinSystemServiceApplication {
 
 	public static void main(String[] args) throws TTransportException {
-		SpringApplication.run(MinSystemServiceApplication.class, args);
+
+		SpringApplication sa = new SpringApplication(MinSystemServiceApplication.class);
+		sa.addListeners(new ApplicationPidFileWriter());
+		sa.run(args);
 		start();
 	}
+
+
 
 	public static void start() throws TTransportException {
 		//创建一个处理器，看代码最后new TCalculateImpl()就知道，thrift需要知道，是哪个类来处理接口的请求。
