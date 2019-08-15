@@ -25,7 +25,7 @@ public class MinSystemServiceApplication {
 		TProcessor tProcessor = new TCalculate.Processor<TCalculate.Iface>(new TCalculateImpl());
 
 		//创建一个服务端socket，最简单的，只需要指定绑定的端口
-		TServerSocket serverTransport = new TServerSocket(8080);
+		TServerSocket serverTransport = new TServerSocket(9000);
 
 		//暂且理解为使用thrift的默认传输协议，我也没具体研究
 		TProtocolFactory protocolFactory = new TBinaryProtocol.Factory();
