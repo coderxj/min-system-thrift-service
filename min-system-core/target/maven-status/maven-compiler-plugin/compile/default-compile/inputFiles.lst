@@ -1,5 +1,5 @@
 /Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/Dto/ExpressionResult.java
-/Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/Exception/ThriftException.java
+/Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/Exception/MinSystemException.java
 /Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/Enums/OPERATE.java
 /Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/Dto/Expression.java
-/Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/service/Calculate.java
+/Users/acme/acme/min-system-thrift-service/min-system-core/src/main/java/com/acme/service/service/TCalculate.java

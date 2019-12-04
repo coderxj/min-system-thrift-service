@@ -1,0 +1,11 @@
+spring:
+  pid:
+    file: /docker/thrift-server/min-system-thrift-service/service.pid
+
+local:
+  appKey: com.acme.msts
+  port: 9000
+
+ServiceGovernanc:
+  host: 127.0.0.1
+  port: 11000
