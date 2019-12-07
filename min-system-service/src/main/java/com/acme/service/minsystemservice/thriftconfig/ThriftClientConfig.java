@@ -2,6 +2,7 @@ package com.acme.service.minsystemservice.thriftconfig;
 
 import com.acme.rc.service.TRegistCenter;
 import com.acme.service.minsystemservice.util.NetWorkUtil;
+import com.acme.sg.Dto.MachineInfo;
 import com.acme.sg.Dto.MachineInfoParam;
 import com.acme.sg.service.TServiceGovernance;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,11 @@ import org.apache.thrift.transport.TSocket;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author acme
@@ -31,6 +37,7 @@ public class ThriftClientConfig {
     @Value("${local.port}")
     private Integer port;
     private final static String IP = NetWorkUtil.getInet4Address();
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
     @Bean
     public TServiceGovernance.Client tServiceGovernanceClient() throws TException {
@@ -39,7 +46,14 @@ public class ThriftClientConfig {
         TProtocol protocol = new TBinaryProtocol(transport);
         TServiceGovernance.Client client = new TServiceGovernance.Client(protocol);
         transport.open();
-        client.start(new MachineInfoParam(appKey, IP, port));
+        client.start(new MachineInfoParam(appKey, Arrays.asList(new MachineInfo(IP, port))));
+        executorService.scheduleWithFixedDelay(() -> {
+            try {
+                client.heartbeat(new MachineInfoParam(appKey, Arrays.asList(new MachineInfo(IP, port))));
+            } catch (TException e) {
+                log.warn("TServiceGovernance offline");
+            }
+        }, 0, 10, TimeUnit.SECONDS);
         return client;
     }
 }
