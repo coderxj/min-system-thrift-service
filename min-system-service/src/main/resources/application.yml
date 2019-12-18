@@ -7,5 +7,5 @@ local:
   port: 9000
 
 ServiceGovernanc:
-  host: 127.0.0.1
+  host: 106.13.95.138
   port: 11000
